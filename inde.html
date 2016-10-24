@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Ecommerce Innodite</title>
+    <!-- Bootstrap -->
+    <!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+  <!-- <div class="container col-lg-6">
+    <h1>Seccion de Categorias</h1>
+      <input type="text" v-model="nuevaCategoria.id" placeholder="Introduce Tu id" class="form-control">
+      <input type="text" v-model="nuevaCategoria.nombre" placeholder="Introduce Tu Categoria" class="form-control">
+  
+      <button @click="createCategoria(nuevaCategoria)" >Agregar Categoria</button>
+  </div> -->
+<div class="container">
+  <div class="row col-md-8 col-md-offset-2">
+    <table class="table table-striped">
+    <tr>
+        <th>Categoria</th>
+        <th>Producto</th>
+        <th width="80px">&nbsp;</th>
+    </tr>
+    <tr v-for="producto in productos" is="producto-row" :producto.sync="producto" :categorias="categorias"></tr>
+    <tr>
+      <td>
+        <select-categoria :categorias="categorias" :id.sync="nuevoProducto.categoria_id"> </select-categoria>
+      </td>
+      <td>
+        <input type="text" v-model="nuevoProducto.nombre" placeholder="Producto" class="form-control">
+      </td>
+      <td>
+        <a href="#" @click="createProducto()" ><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
+      </td>
+    </tr>
+    </table>
+  </div>
+  
+</div>
+   <div class="container">
+     <pre>
+      {{ $data | json }}
+    </pre>
+  </div> 
+
+  <template id="select_categoria_tpl">
+      <select v-model="id" class="form-control" >
+          <option v-for="categoria in categorias" :value="categoria.id"> {{categoria.nombre}}</option>
+      </select>
+  </template>
+  
+  <template id="producto_row_tpl">
+    <tr>
+      <template v-if="! editing">
+          <td>{{ producto.categoria_id | categoria }}</td>
+          <td>{{ producto.nombre }}</td>
+          <td>
+              <a href="#" @click="edit()" class=""><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+              <a href="#" @click="remove()" class=""><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+          </td>
+      </template>
+      <template v-else>
+          <td>
+            <select-categoria :categorias="categorias" :id.sync="producto.categoria_id"> </select-categoria>
+          </td>
+          <td><input v-model="producto.nombre" type="text" class="form-control"></td>
+          <td>
+              <a href="#" @click="update()"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></a>
+          </td>  
+      </template>
+    </tr>
+  </template>
+    <!--Vue JS -->
+   <script src="js/libs/vue.js"></script>
+   <script src="js/product.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      
+  </body>
+</html>
